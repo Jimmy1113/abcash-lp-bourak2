@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABCash｜あの暴落の前に、これをできていたら。</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:        #18181B;
+  --ink-mid:    #3F3F46;
+  --ink-light:  #71717A;
+  --paper:      #FAFAF7;
+  --paper-warm: #F5F3EE;
+  --paper-mid:  #EDE9E0;
+  --red:        #C0392B;
+  --red-muted:  #E8D5D2;
+  --red-deep:   #8B1A1A;
+  --gold:       #B8963E;
+  --gold-light: #F0E6C8;
+  --sage:       #5C7A5E;
+  --border:     #DDD9D0;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ─── FLOATING CTA ─── */
+.floating-cta {
+  position: fixed; bottom: 20px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 200; opacity: 0; pointer-events: none;
+  transition: opacity 0.4s;
+}
+.floating-cta.visible { opacity: 1; pointer-events: all; }
+.floating-cta a {
+  display: block;
+  background: var(--red);
+  color: #fff;
+  font-weight: 700; font-size: 14px;
+  letter-spacing: 0.1em;
+  padding: 14px 36px;
+  border-radius: 2px;
+  text-decoration: none;
+  box-shadow: 0 4px 24px rgba(192,57,43,0.4);
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.2s;
+}
+.floating-cta a:hover { background: var(--red-deep); transform: translateY(-2px); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  background: var(--ink);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 100px 24px 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-texture {
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(255,255,255,0.012) 80px, rgba(255,255,255,0.012) 81px),
+    repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.012) 80px, rgba(255,255,255,0.012) 81px);
+}
+
+.hero-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(192,57,43,0.12) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  position: relative; z-index: 1;
+  animation: fadeUp 1s ease both;
+}
+
+.hero-main {
+  position: relative; z-index: 1;
+  text-align: center;
+  max-width: 700px;
+}
+
+.hero-h1 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(32px, 6vw, 64px);
+  font-weight: 300;
+  color: #fff;
+  line-height: 1.5;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+  animation: fadeUp 1s ease 0.1s both;
+}
+.hero-h1 em {
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15em;
+  color: var(--red);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+.hero-rule {
+  width: 40px; height: 1px;
+  background: var(--gold);
+  margin: 32px auto;
+  animation: fadeUp 1s ease 0.2s both;
+}
+
+.hero-sub {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(14px, 2vw, 18px);
+  font-weight: 300;
+  color: rgba(255,255,255,0.55);
+  line-height: 2;
+  margin-bottom: 56px;
+  animation: fadeUp 1s ease 0.3s both;
+}
+.hero-sub strong { color: rgba(255,255,255,0.85); font-weight: 400; }
+
+.btn-hero {
+  display: inline-block;
+  border: 1px solid var(--red);
+  background: var(--red);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 18px 52px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 0.25s, transform 0.2s;
+  animation: fadeUp 1s ease 0.4s both;
+}
+.btn-hero:hover { background: var(--red-deep); transform: translateY(-2px); }
+
+.hero-note {
+  display: block;
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+  margin-top: 16px;
+  letter-spacing: 0.1em;
+  animation: fadeUp 1s ease 0.5s both;
+}
+
+/* ─── MEMORY ─── */
+.memory {
+  background: var(--paper-warm);
+  padding: 120px 24px;
+  position: relative;
+}
+.memory::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+}
+
+.sec-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.memory-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(24px, 4vw, 42px);
+  font-weight: 300;
+  text-align: center;
+  color: var(--ink);
+  line-height: 1.6;
+  margin-bottom: 72px;
+  letter-spacing: 0.04em;
+}
+
+.memory-scenes {
+  max-width: 640px;
+  margin: 0 auto 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.memory-scene {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 24px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  opacity: 0;
+  transform: translateX(-16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.memory-scene.visible { opacity: 1; transform: translateX(0); }
+.memory-scene:first-child { border-top: 1px solid var(--border); }
+
+.scene-time {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  color: var(--ink-light);
+  letter-spacing: 0.1em;
+  padding-top: 4px;
+  text-align: right;
+}
+
+.scene-text {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(15px, 2vw, 18px);
+  font-weight: 300;
+  color: var(--ink-mid);
+  line-height: 1.8;
+}
+.scene-text strong { color: var(--ink); font-weight: 500; }
+
+.memory-pivot {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 48px 40px;
+  background: var(--ink);
+  border-radius: 2px;
+  position: relative;
+}
+.memory-pivot::before {
+  content: '';
+  position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--border), var(--gold));
+}
+
+.pivot-text {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(16px, 2.5vw, 22px);
+  font-weight: 300;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.9;
+}
+.pivot-text em {
+  font-style: normal;
+  color: var(--gold);
+  font-weight: 400;
+}
+
+/* ─── CONTRAST ─── */
+.contrast {
+  background: var(--paper);
+  padding: 120px 24px;
+}
+
+.contrast-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(22px, 3.5vw, 38px);
+  font-weight: 300;
+  text-align: center;
+  color: var(--ink);
+  line-height: 1.65;
+  margin-bottom: 72px;
+  letter-spacing: 0.04em;
+}
+
+.contrast-grid {
+  max-width: 840px;
+  margin: 0 auto 64px;
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  gap: 0;
+  align-items: stretch;
+}
+
+.contrast-col {
+  padding: 40px 36px;
+  border: 1px solid var(--border);
+}
+.contrast-col.good { background: var(--paper-warm); border-right: none; }
+.contrast-col.bad  { background: #fff; }
+
+.contrast-col-label {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  margin-bottom: 24px;
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 1px;
+}
+.good .contrast-col-label { background: var(--ink); color: var(--gold); }
+.bad  .contrast-col-label { background: var(--paper-mid); color: var(--ink-light); }
+
+.contrast-person {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.contrast-desc {
+  font-size: 13px;
+  color: var(--ink-light);
+  margin-bottom: 28px;
+  line-height: 1.7;
+}
+
+.contrast-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+.contrast-items li {
+  font-size: 13px;
+  line-height: 1.75;
+  padding-left: 18px;
+  position: relative;
+  color: var(--ink-mid);
+}
+.good .contrast-items li::before { content: '→'; position: absolute; left: 0; color: var(--gold); }
+.bad  .contrast-items li::before { content: '→'; position: absolute; left: 0; color: var(--border); }
+
+.contrast-verdict {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 14px;
+  padding: 14px 20px;
+  border-radius: 1px;
+  line-height: 1.7;
+  text-align: center;
+}
+.good .contrast-verdict { background: var(--ink); color: var(--gold); }
+.bad  .contrast-verdict { background: var(--paper-mid); color: var(--ink-light); }
+
+.contrast-vs {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--paper-mid);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.contrast-vs span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: var(--ink-light);
+  letter-spacing: 0.1em;
+}
+
+/* diff table */
+.diff-wrap {
+  max-width: 720px;
+  margin: 0 auto 64px;
+  border: 1px solid var(--border);
+}
+.diff-head {
+  display: grid;
+  grid-template-columns: 1fr 140px 1fr;
+  background: var(--ink);
+}
+.diff-head-cell {
+  padding: 14px 20px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+.diff-head-cell.g { color: var(--gold); }
+.diff-head-cell.m { color: rgba(255,255,255,0.3); border-left: 1px solid rgba(255,255,255,0.08); border-right: 1px solid rgba(255,255,255,0.08); }
+.diff-head-cell.b { color: rgba(255,255,255,0.3); }
+
+.diff-row {
+  display: grid;
+  grid-template-columns: 1fr 140px 1fr;
+  border-top: 1px solid var(--border);
+}
+.diff-cell {
+  padding: 16px 20px;
+  font-size: 13px;
+  line-height: 1.65;
+  text-align: center;
+}
+.diff-cell.g { color: var(--ink); background: var(--paper-warm); font-weight: 500; }
+.diff-cell.m { color: var(--ink-light); background: var(--paper-mid); font-size: 11px; letter-spacing: 0.05em; border-left: 1px solid var(--border); border-right: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
+.diff-cell.b { color: var(--ink-light); background: #fff; }
+
+.contrast-conclusion {
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+}
+.contrast-conclusion p {
+  font-size: 15px;
+  color: var(--ink-light);
+  margin-bottom: 16px;
+}
+.contrast-conclusion strong {
+  display: block;
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(20px, 3vw, 30px);
+  color: var(--ink);
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+/* ─── REVEAL ─── */
+.reveal-section {
+  background: var(--ink);
+  padding: 120px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.reveal-section::after {
+  content: '';
+  position: absolute;
+  bottom: -200px; right: -200px;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,150,62,0.08), transparent 65%);
+  pointer-events: none;
+}
+
+.reveal-section .sec-eyebrow { margin-bottom: 48px; }
+
+.reveal-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(22px, 3.5vw, 38px);
+  font-weight: 300;
+  text-align: center;
+  color: #fff;
+  line-height: 1.65;
+  margin-bottom: 72px;
+  letter-spacing: 0.04em;
+}
+
+.reveal-items {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 64px;
+}
+.reveal-item {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  background: rgba(255,255,255,0.02);
+  transition: background 0.3s;
+}
+.reveal-item:hover { background: rgba(255,255,255,0.05); }
+.reveal-item + .reveal-item { border-top: 1px solid rgba(255,255,255,0.06); }
+
+.reveal-num {
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  color: rgba(255,255,255,0.15);
+  border-right: 1px solid rgba(255,255,255,0.06);
+  padding: 28px 0;
+}
+.reveal-text {
+  padding: 28px 28px;
+}
+.reveal-text h4 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+.reveal-text p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.85;
+}
+
+.reveal-stmt {
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 48px;
+  border: 1px solid rgba(184,150,62,0.25);
+  border-radius: 2px;
+  background: rgba(184,150,62,0.04);
+}
+.reveal-stmt p {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(16px, 2.5vw, 22px);
+  font-weight: 300;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.9;
+}
+.reveal-stmt em {
+  font-style: normal;
+  color: var(--gold);
+}
+
+/* ─── SOLUTION ─── */
+.solution {
+  background: var(--paper-warm);
+  padding: 120px 24px;
+}
+
+.solution-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(22px, 3.5vw, 38px);
+  font-weight: 300;
+  text-align: center;
+  color: var(--ink);
+  line-height: 1.65;
+  margin-bottom: 16px;
+  letter-spacing: 0.04em;
+}
+.solution-lead {
+  text-align: center;
+  font-size: 15px;
+  color: var(--ink-light);
+  line-height: 1.9;
+  margin-bottom: 64px;
+}
+.solution-lead strong { color: var(--ink); }
+
+.solution-items {
+  max-width: 680px;
+  margin: 0 auto 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.solution-item {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 28px;
+  align-items: start;
+  padding: 36px 32px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: box-shadow 0.3s;
+}
+.solution-item:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+
+.sol-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  color: var(--red-muted);
+  line-height: 1;
+  text-align: center;
+  padding-top: 4px;
+}
+.sol-body h3 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+.sol-body p {
+  font-size: 13px;
+  color: var(--ink-light);
+  line-height: 1.9;
+}
+
+.solution-stmt {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 36px 40px;
+  background: var(--ink);
+  border-radius: 2px;
+}
+.solution-stmt p {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.9;
+}
+.solution-stmt strong { color: var(--gold); font-weight: 400; }
+
+/* ─── EVENT ─── */
+.event {
+  background: var(--paper);
+  padding: 80px 24px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.event-inner {
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+}
+.event-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.event-sub { font-size: 13px; color: var(--ink-light); margin-bottom: 40px; letter-spacing: 0.05em; }
+.event-meta {
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 32px;
+  margin-bottom: 40px;
+}
+.event-meta-item .label {
+  font-size: 10px; letter-spacing: 0.2em; color: var(--red); margin-bottom: 6px;
+}
+.event-meta-item .val {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 20px; color: var(--ink); font-weight: 400;
+}
+.btn-mid {
+  display: inline-block;
+  background: var(--red);
+  color: #fff;
+  font-weight: 700; font-size: 14px;
+  letter-spacing: 0.12em;
+  padding: 16px 44px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-mid:hover { background: var(--red-deep); transform: translateY(-2px); }
+
+/* ─── ABOUT ─── */
+.about {
+  background: var(--paper-warm);
+  padding: 120px 24px;
+}
+.about-stats-row {
+  max-width: 480px;
+  margin: 0 auto 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.about-stat {
+  flex: 1;
+  padding: 40px 24px;
+  text-align: center;
+  background: var(--paper);
+}
+.about-stat + .about-stat { border-left: 1px solid var(--border); }
+.about-stat .big {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 56px;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.about-stat .big sup { font-size: 24px; }
+.about-stat .lbl { font-size: 11px; color: var(--ink-light); letter-spacing: 0.1em; }
+.about-note { text-align: center; font-size: 11px; color: var(--ink-light); margin-bottom: 64px; }
+
+.reasons {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+.reason-item {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  background: var(--paper);
+}
+.reason-num {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 32px 16px;
+  background: var(--paper-warm);
+  border-right: 1px solid var(--border);
+}
+.reason-num .rn-label { font-size: 9px; letter-spacing: 0.2em; color: var(--ink-light); margin-bottom: 4px; }
+.reason-num .rn-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  color: var(--red-muted);
+  line-height: 1;
+}
+.reason-body { padding: 32px; }
+.reason-body h3 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px; font-weight: 500;
+  color: var(--ink); margin-bottom: 10px; line-height: 1.5;
+}
+.reason-body p { font-size: 13px; color: var(--ink-light); line-height: 1.9; margin-bottom: 16px; }
+.reason-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.reason-tags span {
+  font-size: 11px; padding: 3px 10px;
+  border: 1px solid var(--border);
+  color: var(--ink-light);
+  border-radius: 1px;
+}
+
+/* ─── SOCIAL PROOF ─── */
+.social {
+  background: var(--paper);
+  padding: 120px 24px;
+}
+.social-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(22px, 3.5vw, 36px);
+  font-weight: 300;
+  text-align: center;
+  color: var(--ink);
+  line-height: 1.65;
+  margin-bottom: 64px;
+  letter-spacing: 0.04em;
+}
+.voices {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.voice-card {
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 40px;
+  background: var(--paper-warm);
+  position: relative;
+}
+.voice-before-after {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+  border-radius: 1px;
+  overflow: hidden;
+}
+.vba-col { padding: 20px 24px; background: var(--paper); }
+.vba-col.before-col { background: #fafafa; }
+.vba-label {
+  font-size: 10px; letter-spacing: 0.25em;
+  margin-bottom: 10px; display: block;
+}
+.vba-col.before-col .vba-label { color: var(--ink-light); }
+.vba-col.after-col .vba-label { color: var(--red); }
+.vba-text {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 13px; color: var(--ink-mid); line-height: 1.8;
+}
+.vba-col.after-col .vba-text { color: var(--ink); font-weight: 500; }
+.voice-meta { font-size: 12px; color: var(--ink-light); border-top: 1px solid var(--border); padding-top: 16px; }
+
+/* ─── FAQ ─── */
+.faq {
+  background: var(--paper-warm);
+  padding: 120px 24px;
+  border-top: 1px solid var(--border);
+}
+.faq-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 300;
+  text-align: center;
+  color: var(--ink);
+  margin-bottom: 56px;
+  letter-spacing: 0.04em;
+}
+.faq-list { max-width: 640px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-item:first-child { border-top: 1px solid var(--border); }
+.faq-q {
+  padding: 22px 0;
+  font-size: 14px; font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  list-style: none;
+  letter-spacing: 0.02em;
+}
+.faq-q::after { content: '+'; font-size: 20px; color: var(--red); font-weight: 300; flex-shrink: 0; transition: transform 0.3s; }
+.faq-item.open .faq-q::after { transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; }
+.faq-item.open .faq-a { max-height: 300px; padding-bottom: 22px; }
+.faq-a p { font-size: 13px; color: var(--ink-light); line-height: 1.9; }
+
+/* ─── FINAL CTA ─── */
+.final-cta {
+  background: var(--ink);
+  padding: 120px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.final-cta::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(192,57,43,0.15), transparent 65%);
+}
+.final-cta-eyebrow {
+  font-size: 10px; letter-spacing: 0.35em;
+  color: var(--gold); margin-bottom: 32px;
+  position: relative; z-index: 1;
+}
+.final-cta-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(24px, 4.5vw, 48px);
+  font-weight: 300;
+  color: #fff;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  letter-spacing: 0.04em;
+  position: relative; z-index: 1;
+}
+.final-cta-title em {
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--red);
+  font-size: 1.1em;
+}
+.final-cta-sub {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 15px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 56px;
+  line-height: 1.9;
+  position: relative; z-index: 1;
+}
+.btn-final {
+  display: inline-block;
+  background: var(--red);
+  color: #fff;
+  font-weight: 700; font-size: 16px;
+  letter-spacing: 0.15em;
+  padding: 22px 64px;
+  border-radius: 2px;
+  text-decoration: none;
+  box-shadow: 0 4px 32px rgba(192,57,43,0.4);
+  position: relative; z-index: 1;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-final:hover { background: var(--red-deep); transform: translateY(-3px); }
+.cta-notes {
+  margin-top: 32px;
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 24px;
+  position: relative; z-index: 1;
+}
+.cta-notes span {
+  font-size: 11px; color: rgba(255,255,255,0.25);
+  letter-spacing: 0.1em;
+}
+.cta-notes span::before { content: '— '; }
+
+footer {
+  background: #0f0f0f;
+  padding: 28px 24px;
+  text-align: center;
+}
+footer p { font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 0.1em; }
+
+/* ─── UTILITIES ─── */
+.reveal {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 640px) {
+  .contrast-grid { grid-template-columns: 1fr; }
+  .contrast-vs { padding: 16px; border: 1px solid var(--border); border-top: none; border-bottom: none; }
+  .contrast-col.good { border-right: 1px solid var(--border); border-bottom: none; }
+  .diff-head, .diff-row { grid-template-columns: 1fr; }
+  .diff-head-cell.m, .diff-cell.m { border: none; border-top: 1px solid rgba(255,255,255,0.06); padding: 8px 20px; font-size: 10px; }
+  .diff-head { display: none; }
+  .diff-cell.g::before { content: attr(data-label) ' '; font-size: 10px; color: var(--gold); display: block; margin-bottom: 4px; letter-spacing: 0.1em; }
+  .diff-cell.b { border-top: 1px solid var(--border); }
+  .voice-before-after { grid-template-columns: 1fr; }
+  .about-stats-row { flex-direction: column; }
+  .about-stat + .about-stat { border-left: none; border-top: 1px solid var(--border); }
+  .reason-item { grid-template-columns: 1fr; }
+  .reason-num { flex-direction: row; gap: 12px; padding: 20px 24px; border-right: none; border-bottom: 1px solid var(--border); }
+  .solution-item { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="floating-cta" id="floatingCta">
+  <a href="#cta">無料体験会に申し込む →</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="hero">
+  <div class="hero-texture"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-eyebrow">ABCash 無料体験会</div>
+
+  <div class="hero-main">
+    <h1 class="hero-h1">
+      あの暴落の前に、<br><em>これをできていたら。</em>
+    </h1>
+
+    <div class="hero-rule"></div>
+
+    <p class="hero-sub">
+      知っていた人は、怖くなかった。<br>
+      勇気じゃなく、<strong>「もう一つの設計」</strong>を持っていたから。
+    </p>
+
+    <a href="#cta" class="btn-hero">無料体験会を見てみる →</a>
+    <span class="hero-note">参加費無料・勧誘・営業は一切ありません</span>
+  </div>
+</section>
+
+<!-- ══ MEMORY ══ -->
+<section class="memory">
+  <div class="sec-eyebrow reveal">あの日のこと</div>
+  <h2 class="memory-title reveal">覚えていますか？</h2>
+
+  <div class="memory-scenes">
+    <div class="memory-scene">
+      <div class="scene-time">01</div>
+      <div class="scene-text">ニュースで<strong>「暴落」</strong>という文字を見た瞬間、スマホを開いた</div>
+    </div>
+    <div class="memory-scene">
+      <div class="scene-time">02</div>
+      <div class="scene-text">含み損の画面を何度も確認して、<strong>「これ、大丈夫なのか」</strong>と思った</div>
+    </div>
+    <div class="memory-scene">
+      <div class="scene-time">03</div>
+      <div class="scene-text"><strong>「売るべき？持つべき？」</strong>と検索して、答えが見つからなかった夜</div>
+    </div>
+    <div class="memory-scene">
+      <div class="scene-time">04</div>
+      <div class="scene-text">結局何もできないまま、<strong>相場が回復するのをただ待つだけ</strong>だった</div>
+    </div>
+    <div class="memory-scene">
+      <div class="scene-time">05</div>
+      <div class="scene-text">あとから「あのとき買い増していたら」と思った。でも、<strong>あのとき動ける気がしなかった</strong></div>
+    </div>
+  </div>
+
+  <div class="memory-pivot reveal">
+    <p class="pivot-text">
+      そのとき、同じ相場を見て<br>
+      <em>「きた」と思って動いていた人がいた。</em><br><br>
+      その差は何だったのか。
+    </p>
+  </div>
+</section>
+
+<!-- ══ CONTRAST ══ -->
+<section class="contrast">
+  <div class="sec-eyebrow reveal">同じ暴落を経験した2人</div>
+  <h2 class="contrast-title reveal">
+    AさんとBさんの話
+  </h2>
+
+  <div class="contrast-grid reveal">
+    <div class="contrast-col good">
+      <span class="contrast-col-label">CASE 01</span>
+      <div class="contrast-person">Aさん（32歳・会社員）</div>
+      <div class="contrast-desc">積立NISAに加え、「もう一つの軸」を持っていた</div>
+      <ul class="contrast-items">
+        <li>暴落を見て<strong>「買い増しのタイミング」</strong>と判断できた</li>
+        <li>お守り型の資産が含み損を<strong>緩和してくれた</strong></li>
+        <li>不安になることなく<strong>淡々と積立を継続</strong></li>
+        <li>2年後、資産は<strong>順調に回復・成長</strong>した</li>
+      </ul>
+      <div class="contrast-verdict">判断軸があったから、動けた</div>
+    </div>
+
+    <div class="contrast-vs"><span>vs</span></div>
+
+    <div class="contrast-col bad">
+      <span class="contrast-col-label">CASE 02</span>
+      <div class="contrast-person">Bさん（31歳・会社員）</div>
+      <div class="contrast-desc">積立NISAのみ。設定して終わりにしていた</div>
+      <ul class="contrast-items">
+        <li>含み損が出て<strong>売った方がいいのか</strong>迷い続けた</li>
+        <li>不安で検索しても<strong>答えが見つからなかった</strong></li>
+        <li>結局何もできないまま<strong>相場の回復を待つだけ</strong></li>
+        <li>同じ不安を<strong>次の暴落でも繰り返した</strong></li>
+      </ul>
+      <div class="contrast-verdict">設計が一種類しかなく、動けなかった</div>
+    </div>
+  </div>
+
+  <div class="diff-wrap reveal">
+    <div class="diff-head">
+      <div class="diff-head-cell g">Aさん（設計あり）</div>
+      <div class="diff-head-cell m">比較</div>
+      <div class="diff-head-cell b">Bさん（積立のみ）</div>
+    </div>
+    <div class="diff-row">
+      <div class="diff-cell g" data-label="Aさん">暴落を買い場と捉えた</div>
+      <div class="diff-cell m">暴落時の認識</div>
+      <div class="diff-cell b">ただ怖かった</div>
+    </div>
+    <div class="diff-row">
+      <div class="diff-cell g" data-label="Aさん">自分で判断できた</div>
+      <div class="diff-cell m">判断軸</div>
+      <div class="diff-cell b">検索しても答えが出なかった</div>
+    </div>
+    <div class="diff-row">
+      <div class="diff-cell g" data-label="Aさん">リスクが分散されていた</div>
+      <div class="diff-cell m">ポートフォリオ</div>
+      <div class="diff-cell b">一種類のみ</div>
+    </div>
+    <div class="diff-row">
+      <div class="diff-cell g" data-label="Aさん">落ち着いて継続できた</div>
+      <div class="diff-cell m">メンタル</div>
+      <div class="diff-cell b">不安・迷い・後悔</div>
+    </div>
+  </div>
+
+  <div class="contrast-conclusion reveal">
+    <p>差をつくったのは、勇気でも経験でもなく</p>
+    <strong>「ポートフォリオの設計思想」<br>ただ一点だけだった。</strong>
+  </div>
+</section>
+
+<!-- ══ REVEAL ══ -->
+<section class="reveal-section">
+  <div class="sec-eyebrow reveal">「これ」の正体</div>
+  <h2 class="reveal-title reveal">
+    なぜ「積立だけ」では<br>動けなかったのか
+  </h2>
+
+  <div class="reveal-items reveal">
+    <div class="reveal-item">
+      <div class="reveal-num">1</div>
+      <div class="reveal-text">
+        <h4>積立は「耐える」設計しかない</h4>
+        <p>積立投資は長期保有が前提。暴落時に能動的に動く手段がなく、ただ待つしかない構造になっている。</p>
+      </div>
+    </div>
+    <div class="reveal-item">
+      <div class="reveal-num">2</div>
+      <div class="reveal-text">
+        <h4>株だけでは、相場全体が下がると逃げ場がない</h4>
+        <p>株式インデックスのみのポートフォリオは、市場全体の下落時に全資産が同時に含み損になる。</p>
+      </div>
+    </div>
+    <div class="reveal-item">
+      <div class="reveal-num">3</div>
+      <div class="reveal-text">
+        <h4>判断軸がないと、感情で動くしかなくなる</h4>
+        <p>暴落時に売ってしまうのは、知識より先に感情が動くから。設計と判断軸があれば、感情に振り回されない。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal-stmt reveal">
+    <p>
+      暴落は<em>「ごっそり消える日」</em>じゃない。<br>
+      知っている人には<em>「値札が安くなる日」</em>。<br><br>
+      その見え方の違いが、行動の差をつくっていた。
+    </p>
+  </div>
+</section>
+
+<!-- ══ SOLUTION ══ -->
+<section class="solution">
+  <div class="sec-eyebrow reveal">体験会で持ち帰れること</div>
+  <h2 class="solution-title reveal">
+    次の暴落の前に、<br>準備できること
+  </h2>
+  <p class="solution-lead reveal">
+    積立は否定しません。積立は正しい。<br>
+    でも積立は<strong>ゴールじゃなく、スタート</strong>でした。
+  </p>
+
+  <div class="solution-items">
+    <div class="solution-item reveal">
+      <div class="sol-num">1</div>
+      <div class="sol-body">
+        <h3>暴落でも機能する「お守り型ETF」の使い方</h3>
+        <p>株が下がるときに逆の動きをする資産がある。そのしくみと、自分のポートフォリオへの組み込み方を具体的に学びます。</p>
+      </div>
+    </div>
+    <div class="solution-item reveal">
+      <div class="sol-num">2</div>
+      <div class="sol-body">
+        <h3>積立を「育てる」設計思想</h3>
+        <p>積立を卒業するんじゃなく、積立を軸にもう一段階の設計を加える。この思想を持つだけで、次の暴落への向き合い方が変わります。</p>
+      </div>
+    </div>
+    <div class="solution-item reveal">
+      <div class="sol-num">3</div>
+      <div class="sol-body">
+        <h3>「売る？持つ？」に自分で答える判断軸</h3>
+        <p>検索に頼らず、自分で答えを出せるようになる考え方。ここが変わると、暴落が「怖いもの」から「使えるもの」に見えてきます。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="solution-stmt reveal">
+    <p><strong>「知識を教える場所」じゃない。</strong><br>次の暴落で、行動できる自分になる90分。</p>
+  </div>
+</section>
+
+<!-- ══ EVENT ══ -->
+<section class="event">
+  <div class="event-inner reveal">
+    <div class="sec-eyebrow" style="margin-bottom:20px;">開催情報</div>
+    <h2 class="event-title">ABCash 無料体験会</h2>
+    <p class="event-sub">暴落対策・ポートフォリオ設計 特別回</p>
+    <div class="event-meta">
+      <div class="event-meta-item"><div class="label">参加費</div><div class="val">無料</div></div>
+      <div class="event-meta-item"><div class="label">所要時間</div><div class="val">約90分</div></div>
+      <div class="event-meta-item"><div class="label">形式</div><div class="val">オンライン or ご来店</div></div>
+      <div class="event-meta-item"><div class="label">スタイル</div><div class="val">1対1</div></div>
+    </div>
+    <a href="#cta" class="btn-mid">無料で席を確保する →</a>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section class="about">
+  <div class="sec-eyebrow reveal">提供元のご紹介</div>
+  <h2 class="solution-title reveal" style="margin-bottom:48px;">
+    ABCashは<br>貯金から投資まで学べる<br>お金のパーソナルトレーニング
+  </h2>
+
+  <div class="about-stats-row reveal">
+    <div class="about-stat">
+      <div class="big">7<sup>万人+</sup></div>
+      <div class="lbl">累計受講者数</div>
+    </div>
+    <div class="about-stat">
+      <div class="big">96<sup>%</sup></div>
+      <div class="lbl">トレーニング満足度</div>
+    </div>
+  </div>
+  <p class="about-note reveal">※社内調査　2020年1月〜7月</p>
+
+  <div class="reasons reveal">
+    <div class="reason-item">
+      <div class="reason-num">
+        <span class="rn-label">Reason</span>
+        <span class="rn-num">01</span>
+      </div>
+      <div class="reason-body">
+        <h3>あなた専用のカリキュラム</h3>
+        <p>担当コンサルタントが現状・不安・ライフプランをヒアリング。あなたに必要な学びだけを設計します。</p>
+        <div class="reason-tags">
+          <span>NISA</span><span>ETF</span><span>株式投資</span><span>保険</span><span>ライフプランニング</span><span>経済の仕組み</span>
+        </div>
+      </div>
+    </div>
+    <div class="reason-item">
+      <div class="reason-num">
+        <span class="rn-label">Reason</span>
+        <span class="rn-num">02</span>
+      </div>
+      <div class="reason-body">
+        <h3>マンツーマンで資産形成シミュレーション</h3>
+        <p>担当コンサルタントと一緒に、目標とする資産・期間をどのように実現するかをシミュレーション。目標達成までのステップを具体的にします。</p>
+      </div>
+    </div>
+    <div class="reason-item">
+      <div class="reason-num">
+        <span class="rn-label">Reason</span>
+        <span class="rn-num">03</span>
+      </div>
+      <div class="reason-body">
+        <h3>「暴落対策」まで学べる</h3>
+        <p>積立の先にある、ETF活用・ポートフォリオ設計・リスクヘッジの考え方まで。暴落を武器にできる判断軸を1対1で身につけます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SOCIAL PROOF ══ -->
+<section class="social">
+  <div class="sec-eyebrow reveal">ABCash卒業生の声</div>
+  <h2 class="social-title reveal">
+    あの暴落の後に来た人たちが、<br>何を持ち帰ったか
+  </h2>
+
+  <div class="voices">
+    <div class="voice-card reveal">
+      <div class="voice-before-after">
+        <div class="vba-col before-col">
+          <span class="vba-label">BEFORE</span>
+          <p class="vba-text">暴落のたびに不安で検索ばかり。結局何もできない自分が情けなかった。</p>
+        </div>
+        <div class="vba-col after-col">
+          <span class="vba-label">AFTER</span>
+          <p class="vba-text">次の暴落は、正直楽しみにしてるくらいです。判断軸ができた感覚。</p>
+        </div>
+      </div>
+      <div class="voice-meta">30代・会社員 / 積立NISAのみで運用していた</div>
+    </div>
+
+    <div class="voice-card reveal">
+      <div class="voice-before-after">
+        <div class="vba-col before-col">
+          <span class="vba-label">BEFORE</span>
+          <p class="vba-text">含み損が出て怖くなり、売ってしまった。あの判断が今も悔しい。</p>
+        </div>
+        <div class="vba-col after-col">
+          <span class="vba-label">AFTER</span>
+          <p class="vba-text">感情で動かなくなった。設計を変えるだけで、こんなに違うのかと思った。</p>
+        </div>
+      </div>
+      <div class="voice-meta">40代・会社員 / NISA開始から1年目</div>
+    </div>
+
+    <div class="voice-card reveal">
+      <div class="voice-before-after">
+        <div class="vba-col before-col">
+          <span class="vba-label">BEFORE</span>
+          <p class="vba-text">なんとなく始めた投資信託で損が出て、どうすればいいかわからなかった。</p>
+        </div>
+        <div class="vba-col after-col">
+          <span class="vba-label">AFTER</span>
+          <p class="vba-text">何を見て判断すればいいかがわかるようになり、利益を出せるようになった。</p>
+        </div>
+      </div>
+      <div class="voice-meta">31歳・営業職 / 投資歴2年</div>
+    </div>
+  </div>
+  <p style="text-align:center;font-size:11px;color:var(--ink-light);margin-top:24px;">※個人の感想であり、成果を保証するものではありません。</p>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="faq">
+  <h2 class="faq-title reveal">よくある質問</h2>
+  <div class="faq-list reveal">
+    <div class="faq-item">
+      <div class="faq-q">投資初心者でも参加できますか？</div>
+      <div class="faq-a"><p>はい、まったく問題ありません。積立投資を始めたばかりの方を想定した内容です。専門用語は都度解説しながら進めます。</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">参加後に勧誘や営業はありますか？</div>
+      <div class="faq-a"><p>一切ありません。体験会はあくまで学びの場として設計しています。参加後の連絡も、ご希望の方のみです。</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">暴落で含み損が出ている状態でも相談できますか？</div>
+      <div class="faq-a"><p>むしろ今がベストなタイミングです。含み損がある状態での考え方・対処法も体験会で具体的にお伝えします。</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">積立NISAしかやっていない人でも大丈夫ですか？</div>
+      <div class="faq-a"><p>はい、むしろそういった方を主な対象として設計しています。積立投資の次のステップを一緒に考えます。</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">オンライン参加の場合、何が必要ですか？</div>
+      <div class="faq-a"><p>インターネット環境とスマートフォンまたはパソコンがあればご参加いただけます。事前のアプリインストール等は不要です。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FINAL CTA ══ -->
+<section class="final-cta" id="cta">
+  <div class="final-cta-eyebrow">気づいた今が、動くタイミング</div>
+  <h2 class="final-cta-title">
+    次の暴落が来る前に。<br>
+    <em>あの後悔を、もう一度しますか？</em>
+  </h2>
+  <p class="final-cta-sub">
+    あの日と同じ自分でいるか、変わるか。<br>
+    それだけの話です。
+  </p>
+  <a href="#" class="btn-final">無料体験会に申し込む →</a>
+  <div class="cta-notes">
+    <span>参加費無料</span>
+    <span>勧誘・営業なし</span>
+    <span>オンライン or ご来店</span>
+    <span>1対1・約90分</span>
+  </div>
+</section>
+
+<footer>
+  <p>© ABCash Technologies, Inc. All rights reserved.</p>
+</footer>
+
+<script>
+// Reveal on scroll
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Memory scenes stagger
+const sceneObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const scenes = entry.target.querySelectorAll('.memory-scene');
+      scenes.forEach((s, i) => {
+        setTimeout(() => s.classList.add('visible'), i * 120);
+      });
+      sceneObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+const scenesEl = document.querySelector('.memory-scenes');
+if (scenesEl) sceneObs.observe(scenesEl);
+
+// Floating CTA
+const hero = document.getElementById('hero');
+const fcta = document.getElementById('floatingCta');
+const finalCta = document.getElementById('cta');
+window.addEventListener('scroll', () => {
+  const hb = hero.getBoundingClientRect().bottom;
+  const ft = finalCta.getBoundingClientRect().top;
+  fcta.classList.toggle('visible', hb < 0 && ft > window.innerHeight);
+});
+
+// FAQ
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    const open = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!open) item.classList.add('open');
+  });
+});
+</script>
+</body>
+</html>
