@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>暴落時の買い増し戦略、知っていますか？｜ABCash 無料体験会</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --tq:#25B2C7;--tql:#60C7D5;--tqp:#E8F8FA;
+  --tb:#2F3842;--stone:#596572;--og:#F77261;
+  --wh:#FFFFFF;--iv:#F8F6ED;--bd:#EBEBEB;
+  --mint:#42B187;--yellow:#E5EB67
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;color:var(--tb);background:var(--wh);line-height:1.8;overflow-x:hidden}
+img{max-width:100%}
+
+/* ── UTIL ── */
+.sec{padding:64px 20px}
+.sec-iv{background:var(--iv)}
+.sec-wh{background:var(--wh)}
+.sec-dk{background:var(--tb)}
+.si{max-width:640px;margin:0 auto}
+.lbl{font-size:10px;letter-spacing:.16em;color:var(--tq);font-weight:500;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.lbl::before{content:'';width:18px;height:1px;background:var(--tq)}
+.lbl-wh{color:var(--tql)}
+.lbl-wh::before{background:var(--tql)}
+h2.sh{font-family:'Shippori Mincho',serif;font-size:clamp(22px,5.5vw,34px);font-weight:500;line-height:1.5;margin-bottom:28px}
+h2.sh-wh{color:var(--wh)}
+.ac{color:var(--tql)}
+.og{color:var(--og)}
+@keyframes fu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.fade-in.vis{opacity:1;transform:translateY(0)}
+
+/* ── 1. CAMPAIGN BANNER ── */
+.campaign-banner{background:var(--og);padding:14px 20px;text-align:center;position:relative}
+.cb-in{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:4px;align-items:center}
+.cb-tag{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;font-size:10px;font-weight:500;color:var(--wh);padding:2px 10px;letter-spacing:.08em;margin-bottom:4px}
+.cb-title{font-size:15px;font-weight:700;color:var(--wh);letter-spacing:.04em}
+.cb-gifts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:6px}
+.cb-gift{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.18);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--wh)}
+.cb-gift::before{content:'✦';font-size:8px;opacity:.8}
+.cb-deadline{font-size:11px;color:rgba(255,255,255,.75);margin-top:4px}
+
+/* ── 2. HERO / PAIN導入 ── */
+.hero{min-height:100vh;background:var(--tb);position:relative;display:flex;flex-direction:column;justify-content:center;padding:80px 20px 80px;overflow:hidden}
+.hbg1{position:absolute;width:480px;height:480px;border-radius:50%;background:var(--tq);opacity:.06;top:-160px;right:-100px}
+.hbg2{position:absolute;width:260px;height:260px;border-radius:50%;background:var(--tql);opacity:.05;bottom:-50px;left:-50px}
+.hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(96,199,213,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(96,199,213,.04) 1px,transparent 1px);background-size:52px 52px}
+.hi{position:relative;max-width:640px;margin:0 auto;width:100%}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(96,199,213,.1);border:1px solid rgba(96,199,213,.25);border-radius:40px;padding:5px 14px;font-size:11px;color:var(--tql);letter-spacing:.08em;margin-bottom:24px;animation:fu .8s ease both}
+.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--tql);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.hero-q{font-size:clamp(13px,3vw,16px);color:rgba(255,255,255,.5);letter-spacing:.04em;margin-bottom:12px;animation:fu .8s .05s ease both}
+h1.hero-catch{font-family:'Shippori Mincho',serif;font-size:clamp(38px,10vw,62px);font-weight:600;line-height:1.25;color:var(--wh);margin-bottom:8px;animation:fu .8s .1s ease both}
+.hero-sub{font-family:'Shippori Mincho',serif;font-size:clamp(16px,4vw,22px);color:rgba(255,255,255,.6);margin-bottom:28px;animation:fu .8s .18s ease both}
+.hero-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:2;margin-bottom:40px;max-width:460px;animation:fu .8s .26s ease both}
+.btn-hero{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--tq);color:var(--wh);font-size:15px;font-weight:500;padding:17px 34px;border-radius:60px;border:none;cursor:pointer;transition:all .22s;text-decoration:none;max-width:340px;animation:fu .8s .34s ease both}
+.btn-hero:hover{background:#1c9eb2;transform:translateY(-2px)}
+.hero-note{font-size:11px;color:rgba(255,255,255,.25);margin-top:10px;animation:fu .8s .4s ease both}
+.scroll-ind{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:4px}
+.sline{width:1px;height:32px;background:linear-gradient(to bottom,rgba(96,199,213,.45),transparent);animation:sd 2s ease infinite}
+@keyframes sd{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.stxt{font-size:9px;letter-spacing:.14em;color:rgba(255,255,255,.2)}
+
+/* ── 3. 数字で痛みを可視化 ── */
+.nanpin-card{background:var(--tb);border-radius:16px;padding:28px 20px;position:relative;overflow:hidden;margin-bottom:16px}
+.nanpin-card::before{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;background:rgba(247,114,97,.08)}
+.nanpin-label{font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.35);margin-bottom:8px;font-weight:500}
+.nanpin-scenario{display:flex;flex-direction:column;gap:0}
+.ns-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.ns-row:last-child{border-bottom:none}
+.ns-left{display:flex;flex-direction:column;gap:2px}
+.ns-action{font-size:12px;color:rgba(255,255,255,.5)}
+.ns-price{font-family:'Shippori Mincho',serif;font-size:18px;font-weight:500;color:var(--wh)}
+.ns-right{text-align:right}
+.ns-result{font-size:11px;color:rgba(255,255,255,.35)}
+.ns-loss{font-family:'Shippori Mincho',serif;font-size:16px;font-weight:500;color:var(--og)}
+.nanpin-total{background:rgba(247,114,97,.12);border:1px solid rgba(247,114,97,.25);border-radius:10px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.nt-label{font-size:12px;color:rgba(255,255,255,.5)}
+.nt-val{font-family:'Shippori Mincho',serif;font-size:22px;font-weight:600;color:var(--og)}
+.insight-note{padding:20px;background:rgba(37,178,199,.07);border-radius:12px;border-left:2px solid var(--tql)}
+.insight-note p{font-size:13px;color:rgba(255,255,255,.6);line-height:1.9}
+.insight-note .hl{color:var(--tql);font-weight:500}
+
+/* ── 4. 準備ゼロシミュ ── */
+.sim-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.sim-card{border-radius:14px;padding:20px 16px;border:1px solid var(--bd)}
+.sim-card.bad{border-color:rgba(247,114,97,.3);background:rgba(247,114,97,.04)}
+.sim-card.good{border-color:rgba(37,178,199,.3);background:rgba(37,178,199,.04)}
+.sim-tag{font-size:10px;font-weight:500;letter-spacing:.06em;padding:2px 8px;border-radius:20px;margin-bottom:10px;display:inline-block}
+.sim-tag.bad{background:rgba(247,114,97,.12);color:#993C1D}
+.sim-tag.good{background:var(--tqp);color:var(--tq)}
+.sim-title{font-size:14px;font-weight:500;color:var(--tb);margin-bottom:8px}
+.sim-items{display:flex;flex-direction:column;gap:5px}
+.sim-item{font-size:12px;color:var(--stone);display:flex;align-items:flex-start;gap:5px;line-height:1.5}
+.sim-item::before{content:'';width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.sim-card.bad .sim-item::before{background:#D85A30}
+.sim-card.good .sim-item::before{background:var(--tq)}
+.sim-resolve{padding:18px;background:var(--iv);border-radius:12px;text-align:center}
+.sim-resolve p{font-size:13px;color:var(--stone);line-height:1.8}
+.sim-resolve .hl{color:var(--tb);font-weight:500}
+
+/* ── 5. PAIN深化 ── */
+.pain-deep{text-align:center;padding:64px 20px;background:var(--tb);position:relative;overflow:hidden}
+.pain-deep::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(247,114,97,.06) 0%,transparent 70%)}
+.pd-in{position:relative;max-width:560px;margin:0 auto}
+.pd-q{font-family:'Shippori Mincho',serif;font-size:clamp(24px,6vw,38px);font-weight:500;color:var(--wh);line-height:1.5;margin-bottom:20px}
+.pd-q .red{color:#F0997B}
+.pd-sub{font-size:13px;color:rgba(255,255,255,.45);line-height:1.9}
+
+/* ── 6. BRIDGE ── */
+.bridge-box{background:var(--tqp);border-radius:16px;padding:28px 22px;border:1px solid rgba(37,178,199,.2);text-align:center}
+.bridge-box h2{font-family:'Shippori Mincho',serif;font-size:clamp(18px,4.5vw,26px);font-weight:500;color:var(--tb);line-height:1.6;margin-bottom:14px}
+.bridge-box h2 .ac{color:var(--tq)}
+.bridge-box p{font-size:13px;color:var(--stone);line-height:1.9}
+
+/* ── 7・8 CONTRAST ── */
+.contrast-cards{display:flex;flex-direction:column;gap:12px;margin-top:28px}
+.cc{border-radius:16px;padding:24px 20px;border:1px solid var(--bd);background:var(--wh)}
+.cc.good{border-color:rgba(37,178,199,.3);background:rgba(37,178,199,.02)}
+.cc.bad{border-color:rgba(247,114,97,.3);background:rgba(247,114,97,.02)}
+.cc-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.cc-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.cc-avatar.good{background:var(--tqp)}
+.cc-avatar.bad{background:#FAECE7}
+.cc-info{}
+.cc-name{font-size:14px;font-weight:500;color:var(--tb)}
+.cc-meta{font-size:11px;color:var(--stone)}
+.cc-tag{display:inline-block;font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;margin-bottom:8px}
+.cc-tag.good{background:var(--tqp);color:var(--tq)}
+.cc-tag.bad{background:#FAECE7;color:#993C1D}
+.cc-items{display:flex;flex-direction:column;gap:6px}
+.cc-item{font-size:13px;color:var(--stone);display:flex;align-items:flex-start;gap:8px;line-height:1.6}
+.cc-item-icon{font-size:12px;flex-shrink:0;margin-top:2px}
+.cc-result{margin-top:14px;padding:12px 14px;border-radius:10px;font-size:13px;font-weight:500;line-height:1.6}
+.cc-result.good{background:var(--tqp);color:#0F6E56}
+.cc-result.bad{background:#FAECE7;color:#993C1D}
+
+/* ── 9 COMPARE TABLE ── */
+.compare-table{width:100%;border-collapse:collapse;margin-top:28px;font-size:13px}
+.compare-table th{padding:12px 10px;background:var(--tb);color:rgba(255,255,255,.7);font-weight:500;font-size:11px;letter-spacing:.06em;border:1px solid rgba(255,255,255,.08)}
+.compare-table th.col-good{color:var(--tql)}
+.compare-table th.col-bad{color:#F0997B}
+.compare-table td{padding:12px 10px;border:1px solid var(--bd);line-height:1.5;vertical-align:top}
+.compare-table td.axis{font-weight:500;font-size:11px;color:var(--stone);background:var(--iv)}
+.compare-table td.good{color:#0F6E56;background:rgba(37,178,199,.03)}
+.compare-table td.bad{color:#993C1D;background:rgba(247,114,97,.03)}
+
+/* ── 10 GRAPH / 複利 ── */
+.graph-wrap{margin-top:28px;background:var(--tb);border-radius:16px;padding:28px 20px}
+.graph-label{font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.35);margin-bottom:16px;font-weight:500}
+.graph-bars{display:flex;flex-direction:column;gap:14px}
+.gbar-row{display:flex;align-items:center;gap:10px}
+.gbar-name{font-size:11px;color:rgba(255,255,255,.5);width:60px;flex-shrink:0;line-height:1.4;text-align:right}
+.gbar-track{flex:1;height:32px;background:rgba(255,255,255,.06);border-radius:6px;overflow:hidden;position:relative}
+.gbar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;font-family:'Shippori Mincho',serif;font-size:14px;font-weight:500;color:var(--wh);transition:width 1.2s ease}
+.gbar-fill.tq{background:var(--tq)}
+.gbar-fill.og{background:var(--og)}
+.gbar-fill.stone{background:var(--stone)}
+.graph-note{margin-top:16px;font-size:11px;color:rgba(255,255,255,.3);line-height:1.7}
+
+/* ── 11 WHY ── */
+.why-cards{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+.why-card{display:flex;gap:14px;padding:18px;border-radius:12px;border:1px solid var(--bd);background:var(--wh)}
+.why-num{font-family:'Shippori Mincho',serif;font-size:28px;font-weight:400;color:var(--tql);opacity:.4;flex-shrink:0;line-height:1;width:32px;padding-top:4px}
+.why-ttl{font-size:14px;font-weight:500;color:var(--tb);margin-bottom:4px}
+.why-desc{font-size:12px;color:var(--stone);line-height:1.75}
+
+/* ── 12 キャンペーン再訴求 ── */
+.campaign2{background:var(--og);border-radius:16px;padding:28px 22px;text-align:center;position:relative;overflow:hidden}
+.campaign2::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.06)}
+.c2-tag{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;font-size:10px;color:var(--wh);font-weight:500;padding:2px 10px;letter-spacing:.08em;margin-bottom:10px}
+.c2-title{font-family:'Shippori Mincho',serif;font-size:clamp(18px,4.5vw,24px);color:var(--wh);font-weight:500;line-height:1.5;margin-bottom:12px}
+.c2-gifts{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.c2-gift{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border-radius:10px;padding:8px 12px;font-size:12px;color:var(--wh)}
+.c2-gift::before{content:'🎁';font-size:14px}
+.btn-og{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--wh);color:var(--og);font-size:14px;font-weight:700;padding:15px 32px;border-radius:60px;border:none;cursor:pointer;text-decoration:none;transition:all .22s;letter-spacing:.04em;width:100%;max-width:320px}
+.btn-og:hover{transform:translateY(-2px)}
+
+/* ── 13 講座内容 ── */
+.contents-list{display:flex;flex-direction:column;gap:0;margin-top:28px}
+.cont-item{display:flex;gap:14px;padding:18px 0;border-bottom:1px solid var(--bd)}
+.cont-item:last-child{border-bottom:none}
+.cont-n{font-family:'Shippori Mincho',serif;font-size:30px;font-weight:400;color:var(--tql);opacity:.4;flex-shrink:0;line-height:1;width:36px;padding-top:4px}
+.cont-tag{display:inline-block;background:var(--tqp);color:var(--tq);font-size:10px;font-weight:500;letter-spacing:.06em;padding:2px 8px;border-radius:20px;margin-bottom:5px}
+.cont-ttl{font-size:15px;font-weight:500;color:var(--tb);margin-bottom:4px}
+.cont-desc{font-size:12px;color:var(--stone);line-height:1.75}
+
+/* ── 14 URGENCY ── */
+.urgency-box{background:var(--tb);border-radius:16px;padding:28px 22px;text-align:center;border:1px solid rgba(96,199,213,.15);position:relative;overflow:hidden}
+.urgency-box::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(37,178,199,.07) 0%,transparent 70%)}
+.urg-in{position:relative}
+.urg-icon{font-size:28px;margin-bottom:12px}
+.urg-title{font-family:'Shippori Mincho',serif;font-size:clamp(18px,4.5vw,24px);color:var(--wh);line-height:1.5;margin-bottom:12px}
+.urg-title .ac{color:var(--tql)}
+.urg-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:1.9}
+
+/* ── 15 ABCash紹介 ── */
+.trust-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:28px}
+.trust-stat{background:var(--iv);border-radius:14px;padding:20px 16px;text-align:center}
+.ts-num{font-family:'Shippori Mincho',serif;font-size:32px;font-weight:500;color:var(--tq);line-height:1.2;margin-bottom:4px}
+.ts-unit{font-size:14px;font-weight:400}
+.ts-label{font-size:11px;color:var(--stone);line-height:1.4}
+
+/* ── 16 メディア ── */
+.media-logos{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;justify-content:center}
+.media-logo{background:var(--iv);border-radius:10px;padding:10px 16px;font-size:11px;font-weight:500;color:var(--stone);letter-spacing:.04em;border:1px solid var(--bd)}
+
+/* ── 17 Before & After ── */
+.baa-cards{display:flex;flex-direction:column;gap:12px;margin-top:28px}
+.baa-card{border-radius:16px;padding:22px 18px;border:1px solid var(--bd);background:var(--wh)}
+.baa-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.baa-avatar{width:44px;height:44px;border-radius:50%;background:var(--tqp);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.baa-name{font-size:14px;font-weight:500;color:var(--tb)}
+.baa-meta{font-size:11px;color:var(--stone)}
+.baa-change{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
+.baa-before,.baa-after{padding:10px 12px;border-radius:10px;font-size:12px;line-height:1.6}
+.baa-before{background:#FAECE7;color:#712B13}
+.baa-after{background:var(--tqp);color:#0F6E56}
+.baa-arrow{font-size:18px;color:var(--tql);text-align:center}
+.baa-label{font-size:10px;font-weight:500;letter-spacing:.06em;margin-bottom:5px}
+.baa-label.bf{color:#993C1D}
+.baa-label.af{color:var(--tq)}
+
+/* ── 18・19・20 REASON ── */
+.reason-card{border-radius:16px;padding:28px 22px;margin-bottom:12px;border:1px solid var(--bd);background:var(--wh)}
+.reason-num{font-size:10px;font-weight:500;letter-spacing:.1em;color:var(--tq);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.reason-num::before{content:'';width:14px;height:1px;background:var(--tq)}
+.reason-ttl{font-family:'Shippori Mincho',serif;font-size:clamp(18px,4.5vw,24px);font-weight:500;color:var(--tb);line-height:1.5;margin-bottom:12px}
+.reason-desc{font-size:13px;color:var(--stone);line-height:1.9}
+.reason-visual{margin-top:16px;background:var(--iv);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.rv-row{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--tb)}
+.rv-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.rv-dot-tq{background:var(--tq)}
+.rv-dot-og{background:var(--og)}
+.rv-dot-st{background:#B4B2A9}
+.rv-dot-new{background:var(--tq);border:2px solid var(--tql)}
+.rv-badge{background:var(--tq);color:var(--wh);font-size:9px;font-weight:500;padding:1px 6px;border-radius:10px;margin-left:4px}
+.etf-pill-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.etf-pill{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid transparent}
+.ep-pink{background:#FBEAF0;color:#72243E;border-color:#ED93B1}
+.ep-blue{background:#E6F1FB;color:#0C447C;border-color:#85B7EB}
+.ep-amber{background:#FAEEDA;color:#633806;border-color:#EF9F27}
+
+/* ── CTA FINAL ── */
+.cta-final{padding:80px 20px;background:var(--tb);text-align:center;position:relative;overflow:hidden}
+.cta-final::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(37,178,199,.09) 0%,transparent 70%)}
+.cf-in{position:relative;max-width:460px;margin:0 auto}
+.cf-lbl{font-size:10px;letter-spacing:.16em;color:var(--tql);margin-bottom:16px}
+.cf-h{font-family:'Shippori Mincho',serif;font-size:clamp(22px,6vw,34px);font-weight:500;color:var(--wh);line-height:1.55;margin-bottom:14px}
+.cf-h .ac{color:var(--tql)}
+.cf-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.9;margin-bottom:32px}
+.btn-cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--tq);color:var(--wh);font-size:15px;font-weight:500;padding:18px 36px;border-radius:60px;border:none;cursor:pointer;transition:all .22s;text-decoration:none;width:100%;max-width:340px}
+.btn-cta:hover{background:#1c9eb2;transform:translateY(-2px)}
+.cf-note{margin-top:12px;font-size:11px;color:rgba(255,255,255,.22)}
+
+/* ── FOOTER ── */
+footer{padding:28px 20px;background:var(--tb);border-top:1px solid rgba(255,255,255,.06);text-align:center}
+.flogo{font-family:'Shippori Mincho',serif;font-size:17px;color:var(--wh);letter-spacing:.1em;margin-bottom:5px}
+.fnote{font-size:10px;color:rgba(255,255,255,.18)}
+
+/* ── STICKY ── */
+.sticky{position:fixed;bottom:0;left:0;right:0;padding:10px 16px;background:rgba(47,56,66,.96);backdrop-filter:blur(10px);border-top:1px solid rgba(96,199,213,.16);z-index:100;transform:translateY(100%);transition:transform .35s ease}
+.sticky.vis{transform:translateY(0)}
+.st-in{max-width:640px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.st-txt{font-size:11px;color:rgba(255,255,255,.55);line-height:1.35}
+.st-txt strong{display:block;font-size:13px;color:var(--wh);font-weight:500}
+.btn-st{background:var(--tq);color:var(--wh);font-size:13px;font-weight:500;padding:10px 18px;border-radius:40px;border:none;cursor:pointer;white-space:nowrap;text-decoration:none;transition:background .2s}
+.btn-st:hover{background:#1c9eb2}
+</style>
+</head>
+<body>
+
+<!-- 1. キャンペーンバナー -->
+<div class="campaign-banner">
+  <div class="cb-in">
+    <span class="cb-tag">期間限定</span>
+    <div class="cb-title">無料体験会 申し込みキャンペーン実施中</div>
+    <div class="cb-gifts">
+      <span class="cb-gift">暴落対策チェックシート（PDFプレゼント）</span>
+      <span class="cb-gift">4銀行1証券 設計テンプレート</span>
+    </div>
+    <div class="cb-deadline">▼ 今すぐ申し込んで特典を受け取る</div>
+  </div>
+</div>
+
+<!-- 2. HERO / PAIN導入 -->
+<section class="hero">
+  <div class="hbg1"></div><div class="hbg2"></div><div class="hgrid"></div>
+  <div class="hi">
+    <div class="eyebrow"><span class="eyebrow-dot"></span>ABCash 無料オンライン体験会</div>
+    <p class="hero-q">暴落のとき、あなたは何もできませんでしたか？</p>
+    <h1 class="hero-catch">暴落時の<br><span class="ac">買い増し戦略</span>、<br>知っていますか？</h1>
+    <p class="hero-sub">知っていた人は動けた。知らなかった人は見ていただけ。</p>
+    <p class="hero-desc">
+      積立はしているのに、暴落が来るたびに不安になる。<br>
+      「買い増しした方がいい」とは聞くけど、何をすればいいか分からない。<br>
+      その差は、知識でも才能でもなく、<strong style="color:rgba(255,255,255,.7)">「準備」</strong>だけです。
+    </p>
+    <a href="#apply" class="btn-hero">無料体験会に申し込む →</a>
+    <p class="hero-note">参加費無料・オンライン（Zoom）・60〜80分</p>
+  </div>
+  <div class="scroll-ind"><div class="sline"></div><span class="stxt">SCROLL</span></div>
+</section>
+
+<!-- 3. 数字で痛みを可視化 -->
+<section class="sec sec-wh">
+  <div class="si">
+    <div class="lbl">失敗のリアル</div>
+    <h2 class="sh">「とりあえず買い増し」が<br>招いた<span class="og">損失のシナリオ</span></h2>
+    <div class="nanpin-card fade-in">
+      <div class="nanpin-label">ナンピン投資 失敗例｜オルカン積立中・Aさんのケース</div>
+      <div class="nanpin-scenario">
+        <div class="ns-row">
+          <div class="ns-left"><span class="ns-action">暴落直後、感情で買い増し</span><span class="ns-price">＋50,000円</span></div>
+          <div class="ns-right"><span class="ns-result">さらに下落...</span><span class="ns-loss">－8,000円</span></div>
+        </div>
+        <div class="ns-row">
+          <div class="ns-left"><span class="ns-action">「もう少し待てば戻る」と再投入</span><span class="ns-price">＋30,000円</span></div>
+          <div class="ns-right"><span class="ns-result">下落継続</span><span class="ns-loss">－12,000円</span></div>
+        </div>
+        <div class="ns-row">
+          <div class="ns-left"><span class="ns-action">生活防衛費まで崩して投入</span><span class="ns-price">＋80,000円</span></div>
+          <div class="ns-right"><span class="ns-result">底値で狼狽売り</span><span class="ns-loss">－31,000円</span></div>
+        </div>
+      </div>
+      <div class="nanpin-total">
+        <span class="nt-label">3ヶ月で生じた損失額</span>
+        <span class="nt-val">−51,000円</span>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--stone);margin-top:10px;line-height:1.7">※上記は架空の事例をもとにしたシミュレーションです。実際の投資成果・損失を示すものではありません。</p>
+    <div class="insight-note fade-in">
+      <p>
+        問題は「買い増す」という行動そのものではありません。<br>
+        <span class="hl">準備なく、感情で動いたこと</span>が失敗の原因です。<br>
+        暴落時用の資金と判断軸があれば、同じ行動が「チャンス」になります。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 4. 準備ゼロシミュ -->
+<section class="sec sec-iv">
+  <div class="si">
+    <div class="lbl">準備の差</div>
+    <h2 class="sh">暴落が来たとき、<br>動けるか・動けないかの分かれ目</h2>
+    <div class="sim-cards fade-in">
+      <div class="sim-card bad">
+        <span class="sim-tag bad">準備ゼロ</span>
+        <div class="sim-title">暴落が来ても…</div>
+        <div class="sim-items">
+          <div class="sim-item">生活費と投資資金が混在している</div>
+          <div class="sim-item">「いくらまで使っていいか」が分からない</div>
+          <div class="sim-item">焦って感情で判断してしまう</div>
+          <div class="sim-item">結果、動けないか・損する動きをする</div>
+        </div>
+      </div>
+      <div class="sim-card good">
+        <span class="sim-tag good">準備あり</span>
+        <div class="sim-title">暴落が来たら…</div>
+        <div class="sim-items">
+          <div class="sim-item">暴落時用口座に資金を確保済み</div>
+          <div class="sim-item">「この資金で動く」と決めている</div>
+          <div class="sim-item">冷静に判断軸に従って行動できる</div>
+          <div class="sim-item">暴落をチャンスとして活かせる</div>
+        </div>
+      </div>
+    </div>
+    <div class="sim-resolve fade-in">
+      <p>違いは才能でも経験でもなく、<span class="hl">「暴落前に何を準備したか」</span>だけ。<br>その準備の仕方を、体験会でお伝えします。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5. PAIN深化 -->
+<section class="pain-deep">
+  <div class="pd-in fade-in">
+    <div class="lbl lbl-wh" style="justify-content:center">現実</div>
+    <p class="pd-q">暴落は、<span class="red">予告なく来る。</span><br>準備できていますか？</p>
+    <p class="pd-sub">「次の暴落のときは動こう」と思いながら、<br>準備しないまま時間だけが過ぎていく。<br>気づいたら、また同じことを繰り返していた——。</p>
+  </div>
+</section>
+
+<!-- 6. BRIDGE -->
+<section class="sec sec-wh">
+  <div class="si">
+    <div class="bridge-box fade-in">
+      <h2>投資初心者が今知っておきたい、<br><span class="ac">暴落との正しい付き合い方</span></h2>
+      <p>感情で動くのをやめて、準備で動けるようになる。<br>そのための家計管理・資金設計・ETF戦略を、<br>60分の体験会でまとめてお伝えします。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7・8 CONTRAST -->
+<section class="sec sec-iv">
+  <div class="si">
+    <div class="lbl">2人の違い</div>
+    <h2 class="sh">同じ積立をしていた2人。<br>暴落後の結果が分かれた理由。</h2>
+    <div class="contrast-cards">
+      <div class="cc good fade-in">
+        <div class="cc-head">
+          <div class="cc-avatar good">🙂</div>
+          <div><div class="cc-name">Aさん・28歳・会社員</div><div class="cc-meta">オルカン積立歴2年</div></div>
+        </div>
+        <span class="cc-tag good">準備していたケース</span>
+        <div class="cc-items">
+          <div class="cc-item"><span class="cc-item-icon">✓</span>毎月1万円を「暴落時用口座」へ積み立て</div>
+          <div class="cc-item"><span class="cc-item-icon">✓</span>ETFの基本を事前に学んでいた</div>
+          <div class="cc-item"><span class="cc-item-icon">✓</span>暴落時、決めた金額分だけ冷静に買い増し</div>
+        </div>
+        <div class="cc-result good">暴落後の回復局面で資産が大きく伸長。「準備があったから怖くなかった」</div>
+      </div>
+      <div class="cc bad fade-in">
+        <div class="cc-head">
+          <div class="cc-avatar bad">😟</div>
+          <div><div class="cc-name">Bさん・29歳・会社員</div><div class="cc-meta">同じくオルカン積立歴2年</div></div>
+        </div>
+        <span class="cc-tag bad">準備ゼロだったケース</span>
+        <div class="cc-items">
+          <div class="cc-item"><span class="cc-item-icon">×</span>資金管理は「なんとなく」のまま</div>
+          <div class="cc-item"><span class="cc-item-icon">×</span>暴落時に「動いた方がいい」と焦って投入</div>
+          <div class="cc-item"><span class="cc-item-icon">×</span>さらに下落して精神的に耐えられず売却</div>
+        </div>
+        <div class="cc-result bad">含み損を確定させてしまい、積立も一時停止。「何が正解か分からなくなった」</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 COMPARE TABLE -->
+<section class="sec sec-wh">
+  <div class="si">
+    <div class="lbl">2人の差まとめ</div>
+    <h2 class="sh">「準備の差」が生んだ<br>5つの違い</h2>
+    <div class="fade-in" style="overflow-x:auto">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th style="width:30%">比較項目</th>
+            <th class="col-good">Aさん（準備あり）</th>
+            <th class="col-bad">Bさん（準備なし）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="axis">暴落時の心理</td><td class="good">冷静・想定内</td><td class="bad">パニック・焦り</td></tr>
+          <tr><td class="axis">資金の準備</td><td class="good">暴落用口座あり</td><td class="bad">資金の目的が曖昧</td></tr>
+          <tr><td class="axis">行動の根拠</td><td class="good">事前に決めたルール</td><td class="bad">そのときの感情</td></tr>
+          <tr><td class="axis">積立の継続</td><td class="good">継続できた</td><td class="bad">一時停止してしまった</td></tr>
+          <tr><td class="axis">結果</td><td class="good">資産増加</td><td class="bad">含み損を確定</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 10 複利グラフ -->
+<section class="sec sec-iv">
+  <div class="si">
+    <div class="lbl">複利×準備の力</div>
+    <h2 class="sh">早く準備した人が、<br>長く有利になる。</h2>
+    <div class="graph-wrap fade-in">
+      <div class="graph-label">月3万円×積立年数別｜想定資産額の比較（年利5%）</div>
+      <div class="graph-bars" id="graphBars">
+        <div class="gbar-row">
+          <div class="gbar-name">20年後</div>
+          <div class="gbar-track"><div class="gbar-fill tq" data-width="100%" style="width:0%">約1,236万円</div></div>
+        </div>
+        <div class="gbar-row">
+          <div class="gbar-name">15年後</div>
+          <div class="gbar-track"><div class="gbar-fill og" data-width="72%" style="width:0%">約793万円</div></div>
+        </div>
+        <div class="gbar-row">
+          <div class="gbar-name">10年後</div>
+          <div class="gbar-track"><div class="gbar-fill stone" data-width="40%" style="width:0%">約466万円</div></div>
+        </div>
+      </div>
+      <p class="graph-note">※上記はシミュレーション値です。実際の運用成果を保証するものではありません。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 11 WHY -->
+<section class="sec sec-wh">
+  <div class="si">
+    <div class="lbl">なぜ今動くべきか</div>
+    <h2 class="sh">積立だけでは<br>足りない、3つの理由</h2>
+    <div class="why-cards">
+      <div class="why-card fade-in">
+        <div class="why-num">01</div>
+        <div><div class="why-ttl">暴落はいつ来るか分からない</div><div class="why-desc">市場の暴落はサイクル的に繰り返されますが、タイミングは誰にも予測できません。準備は「暴落後」ではなく「暴落前」にするものです。</div></div>
+      </div>
+      <div class="why-card fade-in">
+        <div class="why-num">02</div>
+        <div><div class="why-ttl">インフレで積立だけでは目減りする</div><div class="why-desc">物価上昇が続く今、ただ積立するだけでは実質的な資産価値が下がり続けます。暴落時の買い増しを活かして、資産の成長効率を上げる必要があります。</div></div>
+      </div>
+      <div class="why-card fade-in">
+        <div class="why-num">03</div>
+        <div><div class="why-ttl">準備なき知識は行動につながらない</div><div class="why-desc">「暴落時は買い増し」と知っていても、準備がなければ実際には動けません。知識より先に、動ける仕組みをつくることが大切です。</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 キャンペーン再訴求 -->
+<section class="sec sec-iv">
+  <div class="si">
+    <div class="campaign2 fade-in">
+      <span class="c2-tag">期間限定キャンペーン</span>
+      <p class="c2-title">気づいた今が、<br>いちばんのチャンスです。</p>
+      <div class="c2-gifts">
+        <div class="c2-gift">暴落対策チェックシート（PDF）</div>
+        <div class="c2-gift">4銀行1証券 設計テンプレート</div>
+      </div>
+      <a href="#apply" class="btn-og">無料で申し込む →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 13 講座内容 -->
+<section class="sec sec-wh">
+  <div class="si">
+    <div class="lbl">体験会で学べること</div>
+    <h2 class="sh">60分に凝縮した、<br>暴落を味方にする全技術</h2>
+    <div class="contents-list">
+      <div class="cont-item fade-in">
+        <div class="cont-n">01</div>
+        <div><span class="cont-tag">マインドセット</span><div class="cont-ttl">ナンピン投資の危険性と「動けなかった自分」の正体</div><div class="cont-desc">感情で動くことのリスクを理解し、「準備で動く」思考に切り替えます。怖くて何もしなかった自分が、実は正しかった理由も分かります。</div></div>
+      </div>
+      <div class="cont-item fade-in">
+        <div class="cont-n">02</div>
+        <div><span class="cont-tag">家計管理</span><div class="cont-ttl">ABCash流「4銀行1証券」資金設計術</div><div class="cont-desc">生活費・生活防衛費・年間予定費・暴落時用の4口座に資金を分ける設計法。口座をひとつ増やすだけで、次の暴落への準備が整います。</div></div>
+      </div>
+      <div class="cont-item fade-in">
+        <div class="cont-n">03</div>
+        <div><span class="cont-tag">ETF入門</span><div class="cont-ttl">積立継続＋ETF買い増しの二刀流戦略</div><div class="cont-desc">積立はやめずに続けながら、暴落時の買い増しにETFを活用する考え方を解説。自分の価値観に合ったETFタイプも紹介します。</div></div>
+      </div>
+      <div class="cont-item fade-in">
+        <div class="cont-n">04</div>
+        <div><span class="cont-tag">実践ワーク</span><div class="cont-ttl">セクター選び＆ポートフォリオ体験（5分）</div><div class="cont-desc">シミュレーションツールを使い、自分の好みのセクターを選んでポートフォリオを組む体験。「投資が自分ごと」になる瞬間を体験できます。</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 URGENCY -->
+<section class="sec sec-iv">
+  <div class="si">
+    <div class="urgency-box fade-in">
+      <div class="urg-in">
+        <div class="urg-icon">⏰</div>
+        <p class="urg-title">「次の暴落のときは動こう」と<br>思い続けて、<span class="ac">また同じことに。</span></p>
+        <p class="urg-desc">暴落は必ず来ます。そしてそのとき、準備できていない人は今回と同じように「見ているだけ」になります。準備は暴落が来てからではできません。今が、動くときです。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 15 ABCash紹介 -->
+<section class="sec sec-wh">
+  <div class="si">
+    <div class="lbl">ABCashについて</div>
+    <h2 class="sh">7万人が選んだ、<br>行動を変えるお金の学校。</h2>
+    <p style="font-size:13px;color:var(--stone);line-height:1.9;margin-bottom:0">
+      ABCashは「知識提供」ではなく「行動変容」を起こすトレーニングサービスです。知識が増えてもお金の不安は消えません。行動が変わって初めて、未来が変わります。
+    </p>
+    <div class="trust-stats">
+      <div class="trust-stat fade-in"><div class="ts-num">7<span class="ts-unit">万人</span></div><div class="ts-label">累計受講者数</div></div>
+      <div class="trust-stat fade-in"><div class="ts-num">96<span class="ts-unit">%</span></div><div class="ts-label">受講満足度</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 16 メディア掲載 -->
+<section class="sec sec-iv">
+  <div class="si">
+    <div class="lbl">メディア掲載実績</div>
+    <h2 class="sh">多くのメディアに<br>取り上げられています。</h2>
+    <div class="media-logos fade-in">
+      <span class="media-logo">テレビ朝日</span>
+      <span class="media-logo">日経WOMAN</span>
+      <span class="media-logo">VERY</span>
+      <span class="media-logo">Oggi</span>
+      <span class="media-logo">ananweb</span>
+      <span class="media-logo">マネーポスト</span>
+    </div>
+  </div>
+</section>
+
+<!-- 17 Before & After -->
+<section class="sec sec-wh">
+  <div class="si">
+    <div class="lbl">卒業生の声</div>
+    <h2 class="sh">準備が整ったら、<br>暴落が怖くなくなった。</h2>
+    <div class="baa-cards">
+      <div class="baa-card fade-in">
+        <div class="baa-head">
+          <div class="baa-avatar">👩</div>
+          <div><div class="baa-name">Cさん・27歳・IT企業勤務</div><div class="baa-meta">受講前：NISA積立のみ、暴落のたびに不安</div></div>
+        </div>
+        <div class="baa-change">
+          <div><div class="baa-label bf">BEFORE</div><div class="baa-before">暴落のたびにアプリを見てしまい、精神的に疲弊。「このまま続けていいのか」と不安だった</div></div>
+          <div class="baa-arrow">→</div>
+          <div><div class="baa-label af">AFTER</div><div class="baa-after">4口座管理を実践し暴落時用の資金を確保。直近の暴落では冷静にETF買い増しができた</div></div>
+        </div>
+      </div>
+      <div class="baa-card fade-in">
+        <div class="baa-head">
+          <div class="baa-avatar">👩‍💼</div>
+          <div><div class="baa-name">Dさん・31歳・メーカー勤務</div><div class="baa-meta">受講前：情報収集はしているが行動できない</div></div>
+        </div>
+        <div class="baa-change">
+          <div><div class="baa-label bf">BEFORE</div><div class="baa-before">YouTubeで勉強しても「自分の場合どうすれば」が分からず、結局何もしていなかった</div></div>
+          <div class="baa-arrow">→</div>
+          <div><div class="baa-label af">AFTER</div><div class="baa-after">自分の軸ができて投資判断に自信が持てるように。暴落を「チャンス」として見られるようになった</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 18 Reason 01 -->
+<section class="sec sec-iv">
+  <div class="si">
+    <div class="lbl">ABCashを選ぶ理由</div>
+    <div class="reason-card fade-in">
+      <div class="reason-num">REASON 01</div>
+      <div class="reason-ttl">あなた専用の<br>4銀行1証券 設計サポート</div>
+      <div class="reason-desc">収入・支出・目標に合わせて、あなただけの資金設計をマンツーマンで組み立てます。「毎月いくら暴落用口座に入れるか」まで具体的に決めます。</div>
+      <div class="reason-visual">
+        <div class="rv-row"><span class="rv-dot rv-dot-tq"></span>生活費口座</div>
+        <div class="rv-row"><span class="rv-dot rv-dot-tq"></span>生活防衛費口座</div>
+        <div class="rv-row"><span class="rv-dot rv-dot-tq"></span>年間予定費口座</div>
+        <div class="rv-row"><span class="rv-dot rv-dot-new"></span>暴落時用口座 <span class="rv-badge">あなた専用に設計</span></div>
+        <div class="rv-row"><span class="rv-dot" style="background:#378ADD"></span>証券口座</div>
+      </div>
+    </div>
+
+    <!-- Reason 02 -->
+    <div class="reason-card fade-in">
+      <div class="reason-num">REASON 02</div>
+      <div class="reason-ttl">あなたの価値観に合った<br>ETF選びを体験できる</div>
+      <div class="reason-desc">「どのETFを選べばいい？」という疑問に、正解の押しつけではなく、あなたが自分で選べる軸を身につけることをサポートします。</div>
+      <div class="reason-visual">
+        <div class="etf-pill-row">
+          <span class="etf-pill ep-pink">ご褒美型 ETF</span>
+          <span class="etf-pill ep-blue">推し活・共感型 ETF</span>
+          <span class="etf-pill ep-amber">お守り型 ETF</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reason 03 -->
+    <div class="reason-card fade-in">
+      <div class="reason-num">REASON 03</div>
+      <div class="reason-ttl">知識より「行動」が<br>変わるトレーニング</div>
+      <div class="reason-desc">知識を学ぶだけのサービスではありません。家計管理・NISA・iDeCoを体系的に学びながら、実際に行動が変わることを目的としたトレーニングプログラムです。</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final" id="apply">
+  <div class="cf-in">
+    <div class="cf-lbl">FREE TRIAL SESSION</div>
+    <h2 class="cf-h">「ちゃんと準備しておけばよかった」<br>と思う前に、<span class="ac">動いてほしい。</span></h2>
+    <p class="cf-desc">参加費は無料。オンラインで、60〜80分。<br>体験会の特典として暴落対策チェックシートと<br>4銀行1証券 設計テンプレートをプレゼント。</p>
+    <a href="#" class="btn-cta">無料体験会に申し込む →</a>
+    <p class="cf-note">参加費無料・オンライン（Zoom）・60〜80分</p>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">ABCash</div>
+  <p class="fnote">© 2025 ABCash. All rights reserved.</p>
+</footer>
+
+<div class="sticky" id="sticky">
+  <div class="st-in">
+    <div class="st-txt"><strong>暴落時の買い増し戦略、学びませんか？</strong>無料体験会・特典付き</div>
+    <a href="#apply" class="btn-st">無料で申し込む</a>
+  </div>
+</div>
+
+<script>
+// Fade-in observer
+const io = new IntersectionObserver(e=>{
+  e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')})
+},{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
+
+// Sticky
+const sticky=document.getElementById('sticky');
+new IntersectionObserver(e=>{
+  e.forEach(x=>{sticky.classList.toggle('vis',!x.isIntersecting)})
+},{threshold:.1}).observe(document.querySelector('.hero'));
+
+// Graph animation
+const graphObs = new IntersectionObserver(e=>{
+  e.forEach(x=>{
+    if(x.isIntersecting){
+      x.target.querySelectorAll('.gbar-fill').forEach(bar=>{
+        setTimeout(()=>{ bar.style.width = bar.dataset.width },200);
+      });
+      graphObs.unobserve(x.target);
+    }
+  })
+},{threshold:.3});
+const gb = document.getElementById('graphBars');
+if(gb) graphObs.observe(gb);
+
+// Smooth scroll
+document.querySelectorAll('a[href="#apply"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    document.getElementById('apply').scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
